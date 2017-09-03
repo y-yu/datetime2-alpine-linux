@@ -1,0 +1,30 @@
+\documentclass{article}
+
+\usepackage{texosquery}
+\usepackage{datetime2}
+
+\DTMsavenow{normal}
+
+% 時間を強制的にtexosqueryで取得する
+\makeatletter
+\TeXOSQueryNow{\dtm@pdfcreationdate}
+\expandafter\@dtm@parsepdfdatetime\dtm@pdfcreationdate\@dtm@endparsepdfdatetime
+\let\@dtm@currentyear\@dtm@year
+\let\@dtm@currentmonth\@dtm@month
+\let\@dtm@currentday\@dtm@day
+\let\@dtm@currenthour\@dtm@hour
+\let\@dtm@currentminute\@dtm@minute
+\let\@dtm@currentsecond\@dtm@second
+\let\@dtm@currenttimezonehour\@dtm@timezonehour
+\let\@dtm@currenttimezoneminute\@dtm@timezoneminute
+\makeatother
+
+\DTMsavenow{texosquery}
+
+\begin{document}
+
+Now is \DTMuse{normal} (normal).
+
+Now is \DTMuse{texosquery} (TeXOSQuery).
+
+\end{document}
