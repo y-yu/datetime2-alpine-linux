@@ -74,9 +74,13 @@ RUN apk --no-cache add wget perl fontconfig-dev xz tar && \
 RUN mkdir /workdir
 
 # Compile TeX file
+COPY dtmnow.tex /workdir/dtmnow.tex
+
 COPY mwe.tex /workdir/mwe.tex
 
-RUN cd /workdir && lualatex --shell-escape mwe.tex
+RUN cd /workdir && \
+    lualatex dtmnow.tex && \
+    lualatex --shell-escape mwe.tex
 
 # Install bash
 RUN apk --no-cache add bash
